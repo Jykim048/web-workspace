@@ -2,6 +2,7 @@ package servlet.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import servlet.model.MemberDAO;
 import servlet.model.MemberVO;
 
 /*
@@ -25,47 +27,49 @@ import servlet.model.MemberVO;
 
 public class EntranceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ServletContext context;
-    List<MemberVO> list = Collections.synchronizedList(new ArrayList<MemberVO>());
-   
-    public void init(ServletConfig config) throws ServletException {
-//    	context = config.getServletContext();
-//    	context.setAttribute("list", list);
-    }
-	    
-    
-    
+	//    private ServletContext context;
+	//    List<MemberVO> list = Collections.synchronizedList(new ArrayList<MemberVO>());
+
+	// public void init(ServletConfig config) throws ServletException {
+	//    	context = config.getServletContext();
+	//    	context.setAttribute("list", list);
+	//    }
+
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setAttribute("list", list);
-		
+
+		//	request.setAttribute("list", list);
+
 		String name = request.getParameter("name");
 		int age = request.getParameter("age")!=null ? Integer.parseInt(request.getParameter("age")) : 0;
 		String addr = request.getParameter("addr");
 		System.out.println("1. 폼값을 받아온다..");
-		
-		if(name!=null) {
-        MemberVO vo = new MemberVO(name, age, addr);
-        list.add(vo);
-        
-        
-        System.out.println("2. MemberVO 생성...");
-		
-		}
-		System.out.println("3. MemberVO를 List에 저장..");
-		
+
+
+		MemberVO vo = new MemberVO(name, age, addr);
+		//	list.add(vo);
+		//System.out.println("3. MemberVO를 List에 저장..");
+
+		// DAO로 데이터 전송
+        MemberDAO dao = new MemberDAO();
+        try {
+			dao.insertMember(vo);
+		} catch (SQLException e) {}
+			
+
 		// 네비게이션
 		RequestDispatcher rdp = request.getRequestDispatcher("viewMember.jsp");
 		rdp.forward(request, response); // 이때 페이지로 이동
-		
+
 		PrintWriter out = response.getWriter();
 		out.println("<a href='viewMember.jsp'>전체 회원 정보 보기 </a>");
 		out.close();
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		doGet(request, response);
 	}
 
