@@ -1,38 +1,36 @@
 package servlet.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ViewMemberServlet
- */
+import servlet.model.MemberDAO;
+import servlet.model.MemberVO;
+
 public class ViewMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ViewMemberServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// 1. DAO 리턴 받기
+		MemberDAO dao = new MemberDAO();
+		ArrayList<MemberVO> list = null;
+		try {
+			list = dao.showAllMember();
+		} catch (SQLException e) {}
+		
+		// 2. 바인딩
+		request.setAttribute("list", list);
+		
+		// 3. 네비게이션 --> viewMember.jsp
+		request.getRequestDispatcher("viewMember.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
