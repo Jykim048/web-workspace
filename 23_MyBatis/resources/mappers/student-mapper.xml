@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+    resultMap에서 TB_STUDENT, TB_DEPARTMENT
+    id, result <-- 앞에서 배운건 여기까지
+    <association property="department" resultMap="departmentMap"/>
+    
+    showStudent
+ -->
+ 
+ <select id="showStudent" parameterType="String">
+ 
+     <!-- #{word} : 조건 - word가 null인지 아닌지
+         WHERE student_no, student_name, student_address, department_name, category 랑 word가 포함되어 있는지
+         이 중 하나만 걸려도 되니까 OR 
+     
+      -->
+ </select>
