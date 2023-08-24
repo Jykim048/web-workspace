@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import config.ServerInfo;
 
@@ -66,6 +67,18 @@ public class MemberDAO implements MemberDAOTemplate {
 		System.out.println(ps.executeUpdate() + "명 가입!");
 		
 		closeAll(ps, conn);
+	}
+
+	@Override
+	public ArrayList<MemberVO> showAllMember() throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemberVO findByNameMember(String name) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

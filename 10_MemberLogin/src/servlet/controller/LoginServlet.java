@@ -27,14 +27,11 @@ public class LoginServlet extends HttpServlet {
 		// 3. DAO 연결
 		
 		try {
-		//	MemberDAO dao = new MemberDAO();
 			MemberDTO dto = MemberDAO.getInstance().login(id, password);
 			
-			// 4. 데이터 바인딩 - session
 			HttpSession session = request.getSession();
 			session.setAttribute("dto", dto);
 			
-			// 5. 네비게이션
 			response.sendRedirect("views/login_result.jsp");
 		} catch (SQLException e) {}
 	}

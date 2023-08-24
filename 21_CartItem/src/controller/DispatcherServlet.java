@@ -7,34 +7,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class DispatcherServlet
- */
-@WebServlet("/DispatcherServlet")
+@WebServlet("*.do")
 public class DispatcherServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DispatcherServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String requestURI = request.getRequestURI();
+		String[] requestURIList = requestURI.split("/");
+		String command = requestURIList[requestURIList.length-1];
+		
+		System.out.println("command :: " + command);
+		
+		Controller controller = HandlerMapping.getInstance().createController(command);
+		ModelAndView mv = null;
+		try {
+			System.out.println("mv :: controller ~~~");
+			mv = controller.handle(request, response);
+		} catch (Exception e) {}
+		
+		if(mv!=null) {
+			if(mv.isRedirect()) response.sendRedirect(mv.getPath());
+			else request.getRequestDispatcher(mv.getPath()).forward(request, response);
+		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
