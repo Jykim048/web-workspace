@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>Test1</display-name>
+  <display-name>ReTest1</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -13,7 +13,7 @@
     <description></description>
     <display-name>SelectUserServlet</display-name>
     <servlet-name>SelectUserServlet</servlet-name>
-    <servlet-class>servlet.controller.SelectUserServlet</servlet-class>
+    <servlet-class>eduedu.kh.test.user.controller.SelectUserServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SelectUserServlet</servlet-name>
@@ -23,20 +23,10 @@
     <description></description>
     <display-name>SelectUserServlet1</display-name>
     <servlet-name>SelectUserServlet1</servlet-name>
-    <servlet-class>edu.kh.test.user.controller.SelectUserServlet</servlet-class>
+    <servlet-class>edu.user.controller.SelectUserServlet1</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>SelectUserServlet1</servlet-name>
     <url-pattern>/SelectUserServlet1</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>UserService</display-name>
-    <servlet-name>UserService</servlet-name>
-    <servlet-class>edu.kh.test.user.model.service.UserService</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserService</servlet-name>
-    <url-pattern>/UserService</url-pattern>
   </servlet-mapping>
 </web-app>
